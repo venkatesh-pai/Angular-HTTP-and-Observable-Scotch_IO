@@ -1,1 +1,22 @@
-<p>user-detail works!</p>
+<div class="row">
+  <div class="col-6">
+    <div class="card" style="width: 18rem">
+      <img class="card-img-top" [src]="user.avatar" [alt]="user.avatar" />
+      <div class="card-body">
+        <h5 class="card-title">{{ user.first_name }} {{ user.last_name }}</h5>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <i class="fa fa-envelope" aria-hidden="true"></i>
+          {{ user.email }}
+        </li>
+      </ul>
+      <div class="card-body">
+        <a class="card-link" (click)="navigateToUserList()">
+          <i class="fa fa-arrow-left" aria-hidden="true"></i>
+          User List
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
