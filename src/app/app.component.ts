@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from './shared/models/user.model';
+import { tap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -13,9 +14,12 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.http.get<any>('https://reqres.in/api/users')
-      .subscribe(response => {
-        console.log(response);
-        this.users = response.data;
+      .pipe(
+        tap(response => console.log('https://reqres.in/api/users', response)),
+        map(response => response.data)
+      )
+      .subscribe(users => {
+        this.users = users;
       });
   }
 }
