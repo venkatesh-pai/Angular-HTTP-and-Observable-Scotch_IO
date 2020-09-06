@@ -8,7 +8,7 @@ import { tap, map, catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class UserService {
-  private usersUrl = 'https://reqres.in/api/users/';
+  private usersUrl = 'https://reqres.in/api/users';
 
   constructor(private http: HttpClient) { }
 
@@ -22,10 +22,18 @@ export class UserService {
   }
 
   getUser(id: number): Observable<User> {
-    return this.http.get<any>(this.usersUrl + id)
+    return this.http.get<any>(`${this.usersUrl}/${id}`)
       .pipe(
-        tap(response => console.log(this.usersUrl, response)),
+        tap(response => console.log(`${this.usersUrl}/${id}`, response)),
         map(response => (response.data as User)),
+        catchError(this.handleError)
+      );
+  }
+
+  updateUser(user: User): Observable<User> {
+    return this.http.put<any>(`${this.usersUrl}/${user.id}`, user)
+      .pipe(
+        tap(response => console.log(`${this.usersUrl}/${user.id}`, response)),
         catchError(this.handleError)
       );
   }
