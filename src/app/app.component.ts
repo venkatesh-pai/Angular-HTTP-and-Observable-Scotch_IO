@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { UserService } from './shared/services/user.service';
 import { User } from './shared/models/user.model';
-import { tap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -10,16 +9,10 @@ import { tap, map } from 'rxjs/operators';
 })
 export class AppComponent implements OnInit {
   users: User[];
-  constructor(private http: HttpClient) { }
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    this.http.get<any>('https://reqres.in/api/users')
-      .pipe(
-        tap(response => console.log('https://reqres.in/api/users', response)),
-        map(response => response.data)
-      )
-      .subscribe(users => {
-        this.users = users;
-      });
+    this.userService.getUsers()
+      .subscribe(users => this.users = users);
   }
 }
