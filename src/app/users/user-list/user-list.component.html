@@ -1,24 +1,28 @@
 <h3>User List</h3>
 <div class="row">
-  <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
-    {{ errorMessage }}
+  <div class="col-6">
+    <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
+    <table class="table" *ngIf="users">
+      <thead>
+        <tr>
+          <th scope="col">Avatar</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td><img [src]="user.avatar" [alt]="user.avatar" height="48px" /></td>
+          <td>
+            <a [routerLink]="[user.id]">
+              {{ user.first_name }} {{ user.last_name }}
+            </a>
+          </td>
+          <td>{{ user.email }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  <table class="table" *ngIf="users">
-    <thead>
-      <tr>
-        <th scope="col">Id</th>
-        <th scope="col">Name</th>
-        <th scope="col">Email</th>
-        <th scope="col">Avatar</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of users">
-        <th scope="row">{{ user.id }}</th>
-        <td>{{ user.first_name }} {{ user.last_name }}</td>
-        <td>{{ user.email }}</td>
-        <td><img [src]="user.avatar" [alt]="user.avatar" height="48px" /></td>
-      </tr>
-    </tbody>
-  </table>
 </div>
